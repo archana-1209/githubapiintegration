@@ -1,0 +1,83 @@
+{% comment %} {% extends 'base.html' %}
+{% block title %}Home {%endblock%}
+{% block content %}      {% endcomment %}
+
+<html>
+  <head>
+    <style>
+  
+      table {
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #cecfd5;
+        padding: 10px 15px;
+      }
+      </style>
+    </head>
+    <body>
+<div id="wrap">
+  <div id="main">
+      <!-- content goes here -->
+      <div class="container-fluid">
+          <div class="row">
+              
+                  <h1 id="page-header">View {{user.username}} 's Repos</h1>
+             
+              
+              <div class="table-responsive">
+                  <table class="table table-bordered table-hover">
+                      <thead class="thead-default">
+                      <tr>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Forks Count</th>
+                          <th>Created At</th>
+                          <th> View Repo </th>
+                          <th> Delete Repo </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for object in repos_list %}
+                          <tr>
+                              <td>{{ object.name }}</td>
+                               {% if object.description %}
+                              <td>{{ object.description }}</td>
+                               {% else %}
+                               <td> No Description Available </td>
+                               {% endif %}
+                              <td>{{ object.forks_count }}</td>
+                              <td>{{ object.created_at }}</td>
+                              <td><a href={{object.html_url}} > {{object.name}} </a></td>
+                              <td> 
+                                <a href="{% url 'repo_delete'  object.name %}">
+                                  <button type="submit" class="btn btn-primary add-btn">Delete</button>
+                              </a>
+                            </td>
+                          </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<center>
+  {%if repo_list.has_previous %} {# whether the previous page exists #}
+      <a href="?page={{repos_list.previous_page_number}}"><</a> {# link to the prev page #}
+  {% endif %}
+  <span>{{repos_list.number}}</span> {# the current page number #}
+  
+  {%if repos_list.has_next %} {# whether the next page exists #}
+      <a href="?page={{repos_list.next_page_number}}">></a> {# link to the next page #}
+  {% else %}
+  <a href="?page={{repos_list.previous_page_number}}">></a>
+  {% endif %}
+</center>
+</body>
+</html>
+
+{% comment %} {% endblock %}   {% endcomment %}
+     

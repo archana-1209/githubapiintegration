@@ -1,0 +1,12 @@
+{% extends 'base.html'  %}
+{% block title %} Sign in {% endblock %}
+{% block content %}
+
+<form action={% url 'repo_create'%} method="POST">
+    {% csrf_token %}
+    <p><input type="text" name="repo_name"  placeholder="Enter Repo Name"/></p>
+    <p><input type="text" name="repo_description"  placeholder="Enter Repo Description"/></p>
+    <p><input type="submit" value="Submit"/></p>            
+</form>
+
+ {% endblock %}  

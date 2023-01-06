@@ -1,0 +1,21 @@
+{% extends 'base.html'  %}
+
+{% block navbar %} Logout
+{% endblock %}
+{% block title %} Sign in {% endblock %}
+{% block content %}
+<div class="alert alert-danger alert-dismissable">
+{% if data %}
+    <p>{{data}}</p>
+    {% else %}
+    <p> .</p>
+    {% endif %}
+</div>
+<form action={% url 'repo_create'%} method="POST">
+    {% csrf_token %}
+    <p><input type="text" name="repo_name"  placeholder="Enter Repo Name"/></p>
+    <p><input type="text" name="repo_description"  placeholder="Enter Repo Description"/></p>
+    <p><input type="submit" value="Submit"/></p>
+    
+</form>
+ {% endblock %}  
